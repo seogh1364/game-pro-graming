@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan mate — 인사이트</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="shell">
+      <nav class="top-nav">
+        <a href="/" class="logo">Plan mate</a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">홈</a></li>
+          <li><a href="/calendar.html" class="nav-link">캘린더</a></li>
+          <li><a href="/ai.html" class="nav-link">AI</a></li>
+          <li><a href="/stats.html" class="nav-link active">인사이트</a></li>
+          <li><a href="/recommend.html" class="nav-link">추천</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button type="button" class="icon-btn" aria-label="알림">🔔</button>
+          <div class="profile" aria-hidden="true">👤</div>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <p class="hero-kicker">Efficiency Trends</p>
+        <h1 class="hero-title">
+          <span>일주일</span>
+          <span class="hero-highlight">활동 인사이트</span>
+        </h1>
+        <p class="hero-desc">완료한 일정 기준으로 공부·운동·휴식 시간을 집계하고 패턴을 분석합니다.</p>
+      </section>
+
+      <div class="stats-summary" id="statsSummary"></div>
+      <div class="stats-chart" id="statsChart"></div>
+    </main>
+  </div>
+
+  <script src="/js/stats.js"></script>
+</body>
+</html>

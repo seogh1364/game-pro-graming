@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan mate — 홈</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="shell">
+      <nav class="top-nav">
+        <a href="/" class="logo">Plan mate</a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link active">홈</a></li>
+          <li><a href="/calendar.html" class="nav-link">캘린더</a></li>
+          <li><a href="/ai.html" class="nav-link">AI</a></li>
+          <li><a href="/stats.html" class="nav-link">인사이트</a></li>
+          <li><a href="/recommend.html" class="nav-link">추천</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button type="button" class="icon-btn" id="notifyBtn" aria-label="알림">🔔</button>
+          <div class="profile" aria-hidden="true">👤</div>
+        </div>
+      </nav>
+
+      <div id="deadlineAlerts" class="alert-stack" aria-live="polite"></div>
+
+      <section class="intel-hero">
+        <div class="intel-content">
+          <span class="intel-kicker">Daily Intelligence</span>
+          <h1>오늘 집중은 <span class="gradient-text" id="focusTask">할 일을 추가해 보세요</span></h1>
+          <p class="intel-desc" id="intelDesc">Plan mate가 우선순위와 일정 밀도를 분석해 오늘의 집중 포인트를 제안합니다.</p>
+        </div>
+        <button type="button" id="startFocusBtn" class="btn-glow">집중 시작</button>
+      </section>
+
+      <div class="dashboard-grid">
+        <section class="panel agenda-panel">
+          <div class="panel-head">
+            <h2>오늘 일정</h2>
+            <a href="/calendar.html" class="panel-link">캘린더 보기 →</a>
+          </div>
+          <p class="section-date" id="todayDate" style="margin:0 0 12px;font-size:0.82rem;color:var(--text-muted)"></p>
+          <div class="agenda-list" id="agendaList"></div>
+          <p class="empty" id="emptyState">아직 등록된 일정이 없습니다. 아래에서 추가해 보세요.</p>
+
+          <details class="add-task-drawer" id="addTaskDrawer" open>
+            <summary>새 일정 추가</summary>
+            <div class="add-task-body">
+              <section class="chat" id="chat" aria-live="polite"></section>
+              <form id="taskForm" class="task-form">
+                <div class="task-form-field full">
+                  <label class="input-label" for="taskTitleInput">할 일</label>
+                  <input id="taskTitleInput" type="text" placeholder="예: 시험공부, 과제하기, 운동" autocomplete="off" />
+                </div>
+
+                <div class="task-form-row">
+                  <div class="task-form-field">
+                    <label class="input-label">일정 날짜</label>
+                    <button type="button" id="scheduleDateBtn">오늘</button>
+                  </div>
+                  <div class="task-form-field">
+                    <label class="input-label">마감일 (선택)</label>
+                    <button type="button" id="deadlineDateBtn">선택 안 함</button>
+                  </div>
+                </div>
+
+                <div class="task-form-field full">
+                  <label class="input-label">시작 시간</label>
+                  <div id="timePickerRoot"></div>
+                </div>
+
+                <div class="task-form-field full">
+                  <label class="input-label">예상 소요 시간</label>
+                  <div class="duration-chips" id="durationChips">
+                    <button type="button" class="duration-chip" data-min="30">30분</button>
+                    <button type="button" class="duration-chip active" data-min="60">1시간</button>
+                    <button type="button" class="duration-chip" data-min="90">1시간 30분</button>
+                    <button type="button" class="duration-chip" data-min="120">2시간</button>
+                  </div>
+                  <p class="hint" id="durationHint">AI 예상: -</p>
+                </div>
+
+                <div class="task-form-row">
+                  <label class="check-row"><input type="checkbox" id="isImportant" /> 중요한 일</label>
+                  <label class="check-row"><input type="checkbox" id="isUrgent" /> 급한 일</label>
+                </div>
+
+                <div class="form-submit-row">
+                  <button type="submit" id="submitBtn" class="btn-glow">일정 추가</button>
+                </div>
+                <p class="hint" id="hint"></p>
+              </form>
+            </div>
+          </details>
+        </section>
+
+        <aside class="insights-column">
+          <div class="panel trend-panel">
+            <div class="panel-head"><h3>효율 트렌드</h3></div>
+            <div class="progress-head">
+              <span>오늘 목표 달성률</span>
+              <strong id="progressLabel">0%</strong>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="trend-stats">
+              <div class="trend-stat">
+                <span class="trend-stat-label">평균 집중</span>
+                <span class="trend-stat-value positive" id="focusAvg">0%</span>
+              </div>
+              <div class="trend-stat">
+                <span class="trend-stat-label">완료한 일</span>
+                <span class="trend-stat-value" id="completedCount">0개</span>
+              </div>
+            </div>
+            <p class="hint" id="progressSub" style="margin-top:10px">0개 중 0개 완료</p>
+          </div>
+
+          <div id="conflictPanel" class="panel conflict-panel hidden">
+            <h3>⚠️ 일정 충돌</h3>
+            <p id="conflictText"></p>
+            <div class="conflict-actions">
+              <button type="button" id="conflictOptimizeBtn" class="btn-coral">AI 재배치</button>
+              <button type="button" id="conflictIgnoreBtn" class="btn-outline">무시</button>
+            </div>
+          </div>
+
+          <div class="panel pomodoro-panel compact" id="pomodoroPanel">
+            <div class="pomodoro-head">
+              <h3>집중 타이머</h3>
+              <span id="pomodoroMode" class="section-badge">준비</span>
+            </div>
+            <p class="pomodoro-task">집중 시간을 설정하고 시작하세요</p>
+            <div class="pomodoro-time" id="pomodoroTime">25:00</div>
+
+            <div class="pomodoro-settings" id="pomodoroSettings">
+              <div class="pomodoro-duration-field">
+                <label class="input-label" for="focusMinutesInput">집중 시간 (분)</label>
+                <div class="duration-chips" id="focusDurationChips">
+                  <button type="button" class="duration-chip" data-min="15">15</button>
+                  <button type="button" class="duration-chip active" data-min="25">25</button>
+                  <button type="button" class="duration-chip" data-min="45">45</button>
+                  <button type="button" class="duration-chip" data-min="60">60</button>
+                </div>
+                <div class="pomodoro-minute-input">
+                  <input type="number" id="focusMinutesInput" min="1" max="180" value="25" aria-label="집중 시간 분" />
+                  <span>분</span>
+                </div>
+              </div>
+              <div class="pomodoro-duration-field">
+                <label class="input-label" for="breakMinutesInput">휴식 시간 (분)</label>
+                <div class="duration-chips" id="breakDurationChips">
+                  <button type="button" class="duration-chip" data-min="3">3</button>
+                  <button type="button" class="duration-chip active" data-min="5">5</button>
+                  <button type="button" class="duration-chip" data-min="10">10</button>
+                  <button type="button" class="duration-chip" data-min="15">15</button>
+                </div>
+                <div class="pomodoro-minute-input">
+                  <input type="number" id="breakMinutesInput" min="1" max="60" value="5" aria-label="휴식 시간 분" />
+                  <span>분</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pomodoro-actions">
+              <button type="button" id="pomodoroStartBtn" class="pill-btn">시작</button>
+              <button type="button" id="pomodoroResetBtn" class="pill-btn pill-btn-muted">리셋</button>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <a href="/ai.html" class="quick-action-card">
+              <span>🤖</span>
+              <strong>AI에게 물어보기</strong>
+              <small>일정 조언 받기</small>
+            </a>
+            <button type="button" class="quick-action-card" id="optimizeBtn" style="border:none;text-align:left;width:100%">
+              <span>⚡</span>
+              <strong>AI 일정 재배치</strong>
+              <small>겹치는 일정 정리</small>
+            </button>
+            <a href="/stats.html" class="quick-action-card">
+              <span>📊</span>
+              <strong>주간 리포트</strong>
+              <small>활동 통계 보기</small>
+            </a>
+            <a href="/recommend.html" class="quick-action-card">
+              <span>🏃</span>
+              <strong>운동 루틴</strong>
+              <small>주말 추천 받기</small>
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- legacy hooks for app.js -->
+      <div class="task-section hidden">
+        <div class="task-list" id="taskList"></div>
+        <span id="taskCount"></span>
+        <span id="heroLine1"></span>
+        <span id="heroLine2"></span>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/datetime-picker.js"></script>
+  <script src="/js/advice-ui.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

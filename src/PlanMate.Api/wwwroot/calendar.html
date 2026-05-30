@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan mate — 캘린더</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="shell">
+      <nav class="top-nav">
+        <a href="/" class="logo">Plan mate</a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">홈</a></li>
+          <li><a href="/calendar.html" class="nav-link active">캘린더</a></li>
+          <li><a href="/ai.html" class="nav-link">AI</a></li>
+          <li><a href="/stats.html" class="nav-link">인사이트</a></li>
+          <li><a href="/recommend.html" class="nav-link">추천</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button type="button" class="icon-btn" aria-label="알림">🔔</button>
+          <div class="profile" aria-hidden="true">👤</div>
+        </div>
+      </nav>
+
+      <div class="calendar-layout">
+        <aside class="icon-sidebar">
+          <a href="/" class="icon-nav-item" title="홈">🏠</a>
+          <a href="/calendar.html" class="icon-nav-item active" title="캘린더">📅</a>
+          <a href="/stats.html" class="icon-nav-item" title="인사이트">📊</a>
+          <a href="/ai.html" class="icon-nav-item" title="AI">🤖</a>
+        </aside>
+
+        <div class="calendar-main">
+          <div class="calendar-header">
+            <h2 id="calMonthLabel">2026년 5월</h2>
+            <div class="calendar-controls">
+              <button type="button" class="cal-nav-btn" id="calPrev" aria-label="이전 달">‹</button>
+              <button type="button" class="cal-today-btn" id="calToday">오늘</button>
+              <button type="button" class="cal-nav-btn" id="calNext" aria-label="다음 달">›</button>
+              <div class="view-toggle">
+                <button type="button" class="active">월</button>
+                <button type="button" disabled>주</button>
+                <button type="button" disabled>일</button>
+              </div>
+            </div>
+          </div>
+          <div class="calendar-grid" id="calGrid"></div>
+        </div>
+
+        <aside class="calendar-detail">
+          <p class="detail-date">선택한 날짜</p>
+          <h3 class="detail-date-full" id="detailDateFull">오늘</h3>
+          <div class="detail-schedule" id="detailSchedule"></div>
+
+          <div class="ai-suggest-box" id="aiSuggestBox">
+            <h4>✨ AI 집중 제안</h4>
+            <p id="aiSuggestText">일정 사이에 집중 시간 블록을 추가해 보세요.</p>
+            <button type="button" class="btn-coral" id="suggestFocusBtn">집중 블록 잡기</button>
+          </div>
+
+          <div class="energy-chart">
+            <h4>에너지 예측</h4>
+            <div class="energy-bars" id="energyBars"></div>
+            <p class="energy-note" id="energyNote">오전 10시~12시에 집중력이 가장 높을 것으로 예측됩니다.</p>
+          </div>
+
+          <button type="button" class="btn-new-event" onclick="location.href='/'">+ 새 일정 추가</button>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/advice-ui.js"></script>
+  <script src="/js/calendar.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan mate — 추천</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="shell">
+      <nav class="top-nav">
+        <a href="/" class="logo">Plan mate</a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">홈</a></li>
+          <li><a href="/calendar.html" class="nav-link">캘린더</a></li>
+          <li><a href="/ai.html" class="nav-link">AI</a></li>
+          <li><a href="/stats.html" class="nav-link">인사이트</a></li>
+          <li><a href="/recommend.html" class="nav-link active">추천</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button type="button" class="sync-btn" id="refreshRoutineBtn">🔄 새 루틴</button>
+          <div class="profile" aria-hidden="true">👤</div>
+        </div>
+      </nav>
+
+      <section class="weather-card" id="weatherCard">
+        <p class="hint">날씨 정보를 불러오는 중...</p>
+      </section>
+
+      <section class="hero">
+        <p class="hero-kicker">Weekend Routine</p>
+        <h1 class="hero-title">
+          <span>주말</span>
+          <span class="hero-highlight" id="routineTitle">운동 루틴</span>
+        </h1>
+        <p class="hero-desc" id="routineSummary"></p>
+      </section>
+
+      <div class="recommend-toolbar">
+        <span class="section-badge" id="routineDay">토요일</span>
+      </div>
+
+      <div class="timetable" id="routineTimetable"></div>
+    </main>
+  </div>
+
+  <script src="/js/recommend.js"></script>
+</body>
+</html>

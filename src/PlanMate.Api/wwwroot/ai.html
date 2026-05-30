@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan mate — AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="page">
+    <main class="shell shell-ai">
+      <nav class="top-nav">
+        <a href="/" class="logo">Plan mate</a>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">홈</a></li>
+          <li><a href="/calendar.html" class="nav-link">캘린더</a></li>
+          <li><a href="/ai.html" class="nav-link active">AI</a></li>
+          <li><a href="/stats.html" class="nav-link">인사이트</a></li>
+          <li><a href="/recommend.html" class="nav-link">추천</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button type="button" class="icon-btn" aria-label="알림">🔔</button>
+          <div class="profile" aria-hidden="true">👤</div>
+        </div>
+      </nav>
+
+      <div class="ai-layout">
+        <aside class="thread-sidebar">
+          <button type="button" class="btn-new-thread" id="newThreadBtn">+ 새 대화</button>
+          <div class="thread-section">
+            <h4>최근 대화</h4>
+            <ul class="thread-list" id="threadList"></ul>
+          </div>
+          <div class="thread-section">
+            <h4>빠른 도구</h4>
+            <details class="add-task-drawer" open>
+              <summary style="font-size:0.78rem;padding:10px 0">AI 공부 계획</summary>
+              <div class="add-task-body" style="padding:0 0 12px;border:none">
+                <div class="input-row">
+                  <input id="studyTopicInput" type="text" placeholder="예: 자료구조" autocomplete="off" />
+                  <button type="button" id="studyPlanBtn" class="pill-btn">생성</button>
+                </div>
+                <div id="studyPlanResult" class="study-plan-result"></div>
+              </div>
+            </details>
+          </div>
+        </aside>
+
+        <div class="ai-main">
+          <div class="ai-chat-panel" id="aiChatPanel" aria-live="polite"></div>
+
+          <div class="quick-chips" id="quickChips">
+            <button type="button" class="chip" data-msg="이번 주 일정을 요약해줘">이번 주 요약</button>
+            <button type="button" class="chip" data-msg="휴식 시간을 추천해줘">휴식 시간 잡기</button>
+            <button type="button" class="chip" data-msg="오늘 일정 우선순위를 정해줘">우선순위 정리</button>
+            <button type="button" class="chip" data-msg="겹치는 일정이 있는지 확인해줘">충돌 확인</button>
+          </div>
+
+          <div class="ai-compose">
+            <div class="ai-compose-row">
+              <input id="aiInput" type="text" placeholder="Plan mate에게 무엇이든 물어보세요..." autocomplete="off" />
+              <button type="button" id="aiSendBtn" class="btn-send" aria-label="전송">➤</button>
+            </div>
+            <p class="hint" id="aiHint" style="margin-top:8px"></p>
+            <p class="ai-disclaimer">AI는 실수할 수 있습니다. 중요한 일정은 꼭 확인하세요.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/ai.js"></script>
+</body>
+</html>
