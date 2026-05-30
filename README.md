@@ -1,3 +1,12 @@
+## 실행 방법
+1. .NET 10 SDK 설치
+2. `PlanMate/src/PlanMate.Api` 폴더에서:
+   dotnet restore
+   dotnet run
+3. 브라우저: http://localhost:5280
+4. AI 사용: appsettings.json 또는 appsettings.Development.json에 Google Gemini API 키 설정
+>>>>>>> d1eab5c073e69c041634b2467634b6db3696fbb5
+
 <<<<<<< HEAD
 ﻿# Plan mate
 
@@ -84,11 +93,4 @@ Restart the server (`dotnet run`). **AI tab** and **schedule card advice** use G
 
 If the old key stopped working with HTTP 403, Google may have blocked it as **leaked** — create a **new** key and revoke the old one in AI Studio.
 =======
-## 실행 방법
-1. .NET 10 SDK 설치
-2. `PlanMate/src/PlanMate.Api` 폴더에서:
-   dotnet restore
-   dotnet run
-3. 브라우저: http://localhost:5280
-4. AI 사용: appsettings.json 또는 appsettings.Development.json에 Google Gemini API 키 설정
->>>>>>> d1eab5c073e69c041634b2467634b6db3696fbb5
+
